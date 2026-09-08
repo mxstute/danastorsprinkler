@@ -72,8 +72,12 @@ h2{font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--black)}
 .hero .wrap{position:relative;z-index:2;padding:6.5rem 0 4.5rem}
 .hero .top{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;margin-bottom:1.4rem;font-weight:600;font-size:.9rem;color:rgba(255,255,255,.85)}
 .hero .top .live{display:inline-flex;align-items:center;gap:.5rem;color:var(--amber)}
-.hero .top .live i{width:9px;height:9px;border-radius:50%;background:#ff4d3d;box-shadow:0 0 0 0 rgba(255,77,61,.6);animation:pulse 1.8s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(255,77,61,0)}100%{box-shadow:0 0 0 0 rgba(255,77,61,0)}}
+.hero .top .live i{width:9px;height:9px;border-radius:50%;background:#ff4d3d;box-shadow:0 0 0 0 rgba(255,77,61,.6)}
+.hero .top .live.open{color:#34d47a}
+.hero .top .live.open i{background:#34d47a;box-shadow:0 0 0 0 rgba(52,212,122,.6);animation:pulse 1.8s infinite}
+.hero .top .live.closed{color:#ff6b5e}
+.hero .top .live.closed i{background:#ff4d3d;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(52,212,122,0)}100%{box-shadow:0 0 0 0 rgba(52,212,122,0)}}
 .hero h1{font-size:clamp(2.7rem,6.6vw,5.4rem);max-width:14ch;text-shadow:0 6px 30px rgba(0,0,0,.5)}
 .hero h1 span{color:var(--amber)}
 .hero .lead{font-size:clamp(1.05rem,1.5vw,1.3rem);max-width:58ch;margin:1.4rem 0 .6rem;color:rgba(255,255,255,.92)}
@@ -385,7 +389,7 @@ footer .credit a{color:var(--amber)}
 
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
-(function(){try{const d=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));const day=d.getDay(),m=d.getHours()*60+d.getMinutes();const el=document.getElementById('openstate');if(day===0){el.textContent='Closed Sunday · opens Mon 7 AM';}else if(m>=420&&m<1170){el.textContent='Open now · until 7:30 PM';}else if(m<420){el.textContent='Opens today at 7 AM';}else{el.textContent=(day===6?'Opens Mon 7 AM':'Opens tomorrow 7 AM');}}catch(e){}})();
+(function(){function tick(){try{const d=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));const day=d.getDay(),m=d.getHours()*60+d.getMinutes();const el=document.getElementById('openstate'),live=el.closest('.live');let open=false,txt;if(day===0){txt='Closed today · opens Mon 7 AM';}else if(m>=420&&m<1170){open=true;txt='Open now · until 7:30 PM';}else if(m<420){txt='Closed · opens today at 7 AM';}else{txt=(day===6?'Closed · opens Mon 7 AM':'Closed · opens tomorrow 7 AM');}el.textContent=txt;live.classList.toggle('open',open);live.classList.toggle('closed',!open);}catch(e){}}tick();setInterval(tick,60000);})();
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
