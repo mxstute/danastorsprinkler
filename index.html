@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>if("scrollRestoration" in history){history.scrollRestoration="manual";}</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Danastor's Sprinkler Service, Inc.","telephone":"+1-954-592-0640","address":{"@type":"PostalAddress","streetAddress":"2139 N University Dr","addressLocality":"Coral Springs","addressRegion":"FL","postalCode":"33071","addressCountry":"US"},"areaServed":["Coral Springs","North Lauderdale","Margate","Tamarac","Coconut Creek","Parkland","Pompano Beach","Sunrise","Lauderhill","Deerfield Beach"],"openingHours":"Mo-Sa 07:00-19:30","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"41"},"url":"https://danastorsprinkler.vercel.app"}
 </script>
@@ -26,7 +27,7 @@
   --ink:#0f1a14; --muted:#5a6b60;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html.smooth{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 h1,h2,h3,.disp{font-family:'Oswald',Impact,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:1}
 img{max-width:100%;display:block}
@@ -388,6 +389,7 @@ footer .credit a{color:var(--amber)}
 <div class="callbar"><a class="btn btn-amber" href="tel:+19545920640">Call Junior</a><a class="btn btn-line" href="#contact">Get estimate</a></div>
 
 <script>
+(function(){let touched=false;const mark=()=>{touched=true;document.documentElement.classList.add('smooth');};['touchstart','wheel','pointerdown','keydown'].forEach(ev=>addEventListener(ev,mark,{once:true,passive:true}));const top=()=>{if(!touched&&!location.hash){window.scrollTo(0,0);}};top();addEventListener('pageshow',top);addEventListener('load',()=>{top();setTimeout(top,60);setTimeout(top,400);setTimeout(top,1200);});})();
 document.getElementById('yr').textContent=new Date().getFullYear();
 (function(){function tick(){try{const d=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));const day=d.getDay(),m=d.getHours()*60+d.getMinutes();const el=document.getElementById('openstate'),live=el.closest('.live');let open=false,txt;if(day===0){txt='Closed today · opens Mon 7 AM';}else if(m>=420&&m<1170){open=true;txt='Open now · until 7:30 PM';}else if(m<420){txt='Closed · opens today at 7 AM';}else{txt=(day===6?'Closed · opens Mon 7 AM':'Closed · opens tomorrow 7 AM');}el.textContent=txt;live.classList.toggle('open',open);live.classList.toggle('closed',!open);}catch(e){}}tick();setInterval(tick,60000);})();
 const nav=document.getElementById('nav');
